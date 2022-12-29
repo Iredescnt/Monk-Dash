@@ -33,3 +33,27 @@ extern "C" void load() {
     // Install our hooks (none defined yet)
     getLogger().info("Installed all hooks!");
 }
+
+int main() {
+  // Initialize VR
+  vr::InitVR();
+
+  while (true) {
+    // Check if the right trigger is pressed
+    if (vr::IsTriggerPressed(vr::kRightTrigger)) {
+      // Change the velocity by 10
+      vr::SetVelocity(10.0f);
+
+      // Wait for 1 second
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+
+      // Set the velocity back to 0
+      vr::SetVelocity(0.0f);
+    }
+  }
+
+  // Shutdown VR
+  vr::ShutdownVR();
+
+  return 0;
+}
